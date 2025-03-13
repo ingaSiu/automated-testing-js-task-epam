@@ -1,4 +1,5 @@
 const LoginPage = require('./../po/pages/login.page');
+const DashboardPage = require('./../po/pages/dashboard.page');
 
 describe('Login page', () => {
   let loginPage;
@@ -42,6 +43,8 @@ describe('Login page', () => {
     await loginForm.input('password').setValue('secret_sauce');
     await loginForm.loginBtn.click();
 
-    await expect($('.app_logo').toHaveText('Swag Labs'));
+    const dashboardPage = new DashboardPage();
+
+    await expect(dashboardPage.header.appLogo.toHaveText('Swag Labs'));
   });
 });

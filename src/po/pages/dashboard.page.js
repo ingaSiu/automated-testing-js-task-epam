@@ -1,9 +1,7 @@
-const BasePage = require('./base.page');
 const Header = require('./../components/common/header.component');
 
-class DashboardPage extends BasePage {
+class DashboardPage {
   constructor() {
-    super('inventory.html');
     this.header = new Header();
   }
 }

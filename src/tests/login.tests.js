@@ -7,7 +7,7 @@ describe('Login page', () => {
 
   beforeEach(async () => {
     loginPage = new LoginPage();
-    await loginPage.open();
+    browser.url('/');
   });
 
   it('should not login with empty inputs', async () => {

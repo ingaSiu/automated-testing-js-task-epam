@@ -16,9 +16,6 @@ describe('Login page', () => {
     await loginForm.input('username').setValue('Username');
     await loginForm.input('password').setValue('Password');
 
-    // await loginForm.input('username').setValue('');
-    // await loginForm.input('password').clearValue();
-
     await loginForm.input('username').click();
     await browser.keys([Key.Control, 'a']);
     await browser.keys([Key.Backspace]);
@@ -38,8 +35,6 @@ describe('Login page', () => {
 
     await loginForm.input('username').setValue('user');
     await loginForm.input('password').setValue('secret_sauce');
-
-    //await loginForm.input('password').clearValue();
 
     await loginForm.input('password').click();
     await browser.keys([Key.Control, 'a']);

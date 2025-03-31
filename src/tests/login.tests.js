@@ -1,12 +1,6 @@
 const LoginPage = require('./../po/pages/login.page');
 const DashboardPage = require('./../po/pages/dashboard.page');
-const { Key } = require('webdriverio');
-
-async function clearInput(element) {
-  await element.click();
-  await browser.keys([Key.Control, 'a']);
-  await browser.keys([Key.Backspace]);
-}
+const { clearInput } = require('./utils/helpers');
 
 describe('Login page', () => {
   let loginPage;

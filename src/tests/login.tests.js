@@ -48,6 +48,8 @@ describe('Login page', () => {
 
     const dashboardPage = new DashboardPage();
 
+    await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
+
     await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
   });
 });

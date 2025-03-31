@@ -52,4 +52,16 @@ describe('Login page', () => {
 
     await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
   });
+
+  it('should not login with incorrect credentials', async () => {
+    const { loginForm } = loginPage;
+
+    await loginForm.input('username').setValue('invalid_user');
+    await loginForm.input('password').setValue('wrong_password');
+    await loginForm.loginBtn.click();
+
+    await expect(loginForm.errorElement).toHaveText(
+      'Epic sadface: Username and password do not match any user in this service',
+    );
+  });
 });

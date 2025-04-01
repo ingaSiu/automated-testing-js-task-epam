@@ -39,18 +39,17 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Password is required');
   });
 
-  it('should login with credentials and navigate to dashboard page', async () => {
+  it('should not login with incorrect username', async () => {
     const { loginForm } = loginPage;
 
-    await loginForm.input('username').setValue('standard_user');
+    await loginForm.input('username').setValue('invalid_user');
     await loginForm.input('password').setValue('secret_sauce');
+
     await loginForm.loginBtn.click();
 
-    const dashboardPage = new DashboardPage();
-
-    await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
-
-    await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
+    await expect(loginForm.errorElement).toHaveText(
+      'Epic sadface: Username and password do not match any user in this service',
+    );
   });
 
   it('should not login with incorrect credentials', async () => {
@@ -63,5 +62,29 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText(
       'Epic sadface: Username and password do not match any user in this service',
     );
+  });
+
+  it('should not login with locked_out users credentials', async () => {
+    const { loginForm } = loginPage;
+
+    await loginForm.input('username').setValue('locked_out_user');
+    await loginForm.input('password').setValue('secret_sauce');
+    await loginForm.loginBtn.click();
+
+    await expect(loginForm.errorElement).toHaveText('Epic sadface: Sorry, this user has been locked out.');
+  });
+
+  it('should login with credentials and navigate to dashboard page', async () => {
+    const { loginForm } = loginPage;
+
+    await loginForm.input('username').setValue('standard_user');
+    await loginForm.input('password').setValue('secret_sauce');
+    await loginForm.loginBtn.click();
+
+    const dashboardPage = new DashboardPage();
+
+    await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
+
+    await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
   });
 });

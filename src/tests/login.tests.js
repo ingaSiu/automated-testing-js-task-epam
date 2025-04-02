@@ -74,6 +74,23 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Sorry, this user has been locked out.');
   });
 
+  it('should clear error message then clicked', async () => {
+    const { loginForm } = loginPage;
+
+    await loginForm.input('username').setValue('invalid_user');
+    await loginForm.input('password').setValue('secret_sauce');
+
+    await loginForm.loginBtn.click();
+
+    await expect(loginForm.errorElement).toHaveText(
+      'Epic sadface: Username and password do not match any user in this service',
+    );
+
+    await loginForm.errorButton.click();
+
+    await expect(loginForm.errorElement).not.toBeDisplayed();
+  });
+
   it('should login with credentials and navigate to dashboard page', async () => {
     const { loginForm } = loginPage;
 

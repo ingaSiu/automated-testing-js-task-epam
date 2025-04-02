@@ -13,6 +13,10 @@ class LoginFormComponent extends BaseComponent {
     return this.rootEl.$('h3[data-test="error"]');
   }
 
+  get errorButton() {
+    return this.rootEl.$('button.error-button');
+  }
+
   input(name) {
     const selectors = {
       username: '#user-name',

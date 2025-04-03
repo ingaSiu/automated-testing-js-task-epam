@@ -11,4 +11,8 @@ async function addSpace(element) {
   await browser.keys([Key.Space]);
 }
 
-module.exports = { clearInput, addSpace };
+async function pressEnter() {
+  await browser.keys([Key.Enter]);
+}
+
+module.exports = { clearInput, addSpace, pressEnter };

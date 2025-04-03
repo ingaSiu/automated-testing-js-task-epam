@@ -6,4 +6,9 @@ async function clearInput(element) {
   await browser.keys([Key.Backspace]);
 }
 
-module.exports = { clearInput };
+async function addSpace(element) {
+  await element.click();
+  await browser.keys([Key.Space]);
+}
+
+module.exports = { clearInput, addSpace };

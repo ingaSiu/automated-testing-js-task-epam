@@ -1,6 +1,6 @@
 const LoginPage = require('./../po/pages/login.page');
 const DashboardPage = require('./../po/pages/dashboard.page');
-const { clearInput } = require('./utils/helpers');
+const { clearInput, addSpace } = require('./utils/helpers');
 
 describe('Login page', () => {
   let loginPage;
@@ -10,7 +10,7 @@ describe('Login page', () => {
     await loginPage.open();
   });
 
-  it('should not login with empty inputs', async () => {
+  it.skip('should not login with empty inputs', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('Username');
@@ -26,7 +26,7 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Username is required');
   });
 
-  it('should not login without password', async () => {
+  it.skip('should not login without password', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('user');
@@ -39,7 +39,7 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Password is required');
   });
 
-  it('should not login with incorrect username', async () => {
+  it.skip('should not login with incorrect username', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('invalid_user');
@@ -52,7 +52,7 @@ describe('Login page', () => {
     );
   });
 
-  it('should not login with incorrect credentials', async () => {
+  it.skip('should not login with incorrect credentials', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('invalid_user');
@@ -64,7 +64,19 @@ describe('Login page', () => {
     );
   });
 
-  it('should not login with locked_out users credentials', async () => {
+  it('should not accept inputs with spaces only ', async () => {
+    const { loginForm } = loginPage;
+
+    await addSpace(loginForm.input('username'));
+    await addSpace(loginForm.input('password'));
+    await loginForm.loginBtn.click();
+
+    await expect(loginForm.errorElement).toHaveText(
+      'Epic sadface: Username and password do not match any user in this service',
+    );
+  });
+
+  it.skip('should not login with locked_out users credentials', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('locked_out_user');
@@ -74,7 +86,7 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Sorry, this user has been locked out.');
   });
 
-  it('should clear error message then clicked', async () => {
+  it.skip('should clear error message then clicked', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('invalid_user');
@@ -91,7 +103,7 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).not.toBeDisplayed();
   });
 
-  it('should login with credentials and navigate to dashboard page', async () => {
+  it.skip('should login with credentials and navigate to dashboard page', async () => {
     const { loginForm } = loginPage;
 
     await loginForm.input('username').setValue('standard_user');

@@ -8,6 +8,18 @@ class HeaderComponent extends BaseComponent {
   get appLogo() {
     return this.rootEl.$('.app_logo');
   }
+
+  get burgerMenuBtn() {
+    return this.rootEl.$('#react-burger-menu-btn');
+  }
+
+  get sideNav() {
+    return $('nav.bm-item-list');
+  }
+
+  get logoutLink() {
+    return $('a#logout_sidebar_link');
+  }
 }
 
 module.exports = HeaderComponent;

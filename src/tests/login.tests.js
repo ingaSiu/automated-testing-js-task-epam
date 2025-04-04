@@ -26,6 +26,13 @@ describe('Login page', () => {
     await expect(loginForm.errorElement).toHaveText('Epic sadface: Username is required');
   });
 
+  it('should not have any autofilled username or password', async () => {
+    const { loginForm } = loginPage;
+
+    await expect(loginForm.input('username')).toHaveValue('');
+    await expect(loginForm.input('password')).toHaveValue('');
+  });
+
   it('should not login without password', async () => {
     const { loginForm } = loginPage;
 

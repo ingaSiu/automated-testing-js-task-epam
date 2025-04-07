@@ -3,7 +3,7 @@ const BasePage = require('./basepage');
 
 class LoginPage extends BasePage {
   constructor() {
-    super('');
+    super();
     this.loginForm = new LoginForm();
   }
 }

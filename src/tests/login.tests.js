@@ -10,6 +10,14 @@ describe('Login page', () => {
     await loginPage.open();
   });
 
+  // afterEach(async () => {
+  //   await browser.deleteCookies();
+  //   await browser.execute(() => {
+  //     localStorage.clear();
+  //     sessionStorage.clear();
+  //   });
+  // });
+
   it('should not login with empty inputs', async () => {
     const { loginForm } = loginPage;
 
@@ -136,5 +144,22 @@ describe('Login page', () => {
     await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
 
     await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
+  });
+
+  it('should redirect to login page after logout', async () => {
+    const { loginForm } = loginPage;
+
+    await loginForm.input('username').setValue('standard_user');
+    await loginForm.input('password').setValue('secret_sauce');
+    await loginForm.loginBtn.click();
+
+    const dashboardPage = new DashboardPage();
+
+    await dashboardPage.header.logout();
+
+    await loginPage.open('/');
+
+    await expect(browser).toHaveUrl(expect.stringContaining('saucedemo.com'));
+    await expect(loginPage.loginForm.input('username')).toBeDisplayed();
   });
 });

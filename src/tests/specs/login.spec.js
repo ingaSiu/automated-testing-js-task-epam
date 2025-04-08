@@ -1,6 +1,6 @@
-const LoginPage = require('./../po/pages/login.page');
-const DashboardPage = require('./../po/pages/dashboard.page');
-const { clearInput, addSpace, pressEnter } = require('./utils/helpers');
+const LoginPage = require('../../po/pages/login.page');
+const DashboardPage = require('../../po/pages/dashboard.page');
+const { clearInput, addSpace, pressEnter } = require('../utils/helpers');
 
 describe('Login tests', () => {
   let loginPage;

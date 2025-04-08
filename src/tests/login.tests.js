@@ -10,13 +10,13 @@ describe('Login page', () => {
     await loginPage.open();
   });
 
-  // afterEach(async () => {
-  //   await browser.deleteCookies();
-  //   await browser.execute(() => {
-  //     localStorage.clear();
-  //     sessionStorage.clear();
-  //   });
-  // });
+  afterEach(async () => {
+    await browser.deleteCookies();
+    await browser.execute(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+  });
 
   it('should not login with empty inputs', async () => {
     const { loginForm } = loginPage;
@@ -138,6 +138,11 @@ describe('Login page', () => {
     await loginForm.input('username').setValue('standard_user');
     await loginForm.input('password').setValue('secret_sauce');
     await loginForm.loginBtn.click();
+
+    await browser.waitUntil(async () => (await browser.getUrl()).includes('inventory.html'), {
+      timeout: 5000, // Adjust timeout as needed
+      timeoutMsg: 'Expected URL to include "inventory.html"',
+    });
 
     const dashboardPage = new DashboardPage();
 

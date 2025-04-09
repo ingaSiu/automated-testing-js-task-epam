@@ -1,10 +1,12 @@
 const LoginForm = require('./../components/login/login-form.component');
-const BasePage = require('./basepage');
 
-class LoginPage extends BasePage {
+class LoginPage {
   constructor() {
-    super();
     this.loginForm = new LoginForm();
+  }
+
+  async open() {
+    await browser.url('/');
   }
 }
 

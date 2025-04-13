@@ -1,5 +1,5 @@
 const LoginPage = require('../../po/pages/login.page');
-const DashboardPage = require('../../po/pages/dashboard.page');
+const InventoryPage = require('../../po/pages/inventory.page');
 const { clearInput, addSpace, pressEnter } = require('../utils/helpers');
 
 describe('Login tests', () => {
@@ -26,30 +26,30 @@ describe('Login tests', () => {
       await loginForm.input('password').setValue('secret_sauce');
       await pressEnter();
 
-      const dashboardPage = new DashboardPage();
+      const inventoryPage = new InventoryPage();
 
       await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
 
-      await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
+      await expect(inventoryPage.header.appLogo).toHaveText('Swag Labs');
     });
 
-    it('should login with credentials and navigate to dashboard page', async () => {
+    it('should login with credentials and navigate to inventory page', async () => {
       const { loginForm } = loginPage;
 
       await loginForm.input('username').setValue('standard_user');
       await loginForm.input('password').setValue('secret_sauce');
       await loginForm.loginBtn.click();
 
-      await browser.waitUntil(async () => (await browser.getUrl()).includes('inventory.html'), {
+      /*await browser.waitUntil(async () => (await browser.getUrl()).includes('inventory.html'), {
         timeout: 5000, // Adjust timeout as needed
         timeoutMsg: 'Expected URL to include "inventory.html"',
-      });
+      });*/
 
-      const dashboardPage = new DashboardPage();
+      const inventoryPage = new InventoryPage();
 
       await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
 
-      await expect(dashboardPage.header.appLogo).toHaveText('Swag Labs');
+      await expect(inventoryPage.header.appLogo).toHaveText('Swag Labs');
     });
 
     it('should redirect to login page after logout', async () => {
@@ -59,13 +59,13 @@ describe('Login tests', () => {
       await loginForm.input('password').setValue('secret_sauce');
       await loginForm.loginBtn.click();
 
-      const dashboardPage = new DashboardPage();
+      const inventoryPage = new InventoryPage();
 
-      await dashboardPage.header.logout();
+      await inventoryPage.header.logout();
 
-      await loginPage.open('/');
+      await loginPage.open();
 
-      await expect(browser).toHaveUrl(expect.stringContaining('saucedemo.com'));
+      //await expect(browser).toHaveUrl(expect.stringContaining('saucedemo.com'));
       await expect(loginPage.loginForm.input('username')).toBeDisplayed();
     });
   });

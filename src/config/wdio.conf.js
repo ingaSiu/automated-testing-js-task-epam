@@ -49,14 +49,32 @@ exports.config = {
   //
   capabilities: [
     {
-      maxInstances: 2,
       browserName: 'chrome',
+      browserVersion: 'stable',
       'goog:chromeOptions': {
-        args: ['--headless=new', '--disable-gpu', '--no-sandbox'],
+        prefs: {
+          //very important to disable 'change your password' popup
+          credentials_enable_service: false,
+          profile: {
+            password_manager_enabled: false,
+          },
+        },
+        args: [
+          '--enable-automation',
+          //'--headless=new',
+          '--disable-gpu',
+          '--disable-save-password-bubble',
+          '--disable-extensions',
+          '--password-store=basic', //very important to disable 'change your password' popup
+          //'--user-data-dir=/tmp/chrome-profile', //uses fresh chrome profile just in case
+        ],
       },
     },
     {
       browserName: 'firefox',
+      'moz:firefoxOptions': {
+        args: ['-headless'],
+      },
     },
   ],
 

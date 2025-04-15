@@ -6,7 +6,7 @@ class LoginFormComponent extends BaseComponent {
   }
 
   get loginBtn() {
-    return this.rootEl.$('#login-button');
+    return this.rootEl.$('input[data-test="login-button"]');
   }
 
   get errorElement() {

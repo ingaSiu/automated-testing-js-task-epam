@@ -14,13 +14,13 @@ class LoginFormComponent extends BaseComponent {
   }
 
   get errorButton() {
-    return this.rootEl.$('button.error-button');
+    return this.rootEl.$('button[data-test="error-button"]');
   }
 
   input(name) {
     const selectors = {
-      username: '#user-name',
-      password: '#password',
+      username: 'input[data-test="username"]',
+      password: 'input[data-test="password"]',
     };
     return this.rootEl.$(selectors[name.toLowerCase()]);
   }

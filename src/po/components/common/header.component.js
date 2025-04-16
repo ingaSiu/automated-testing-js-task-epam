@@ -14,11 +14,11 @@ class HeaderComponent extends BaseComponent {
   }
 
   get sideNav() {
-    return $('nav.bm-item-list');
+    return this.rootEl.$('nav.bm-item-list');
   }
 
   get logoutLink() {
-    return $('a#logout_sidebar_link');
+    return this.rootEl.$('a#logout_sidebar_link');
   }
 
   async openSideNav() {

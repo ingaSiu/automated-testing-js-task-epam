@@ -48,28 +48,28 @@ exports.config = {
   // https://saucelabs.com/platform/platform-configurator
   //
   capabilities: [
-    {
-      browserName: 'chrome',
-      browserVersion: 'stable',
-      'goog:chromeOptions': {
-        prefs: {
-          //very important to disable 'change your password' popup
-          credentials_enable_service: false,
-          profile: {
-            password_manager_enabled: false,
-          },
-        },
-        args: [
-          '--enable-automation',
-          //'--headless=new',
-          '--disable-gpu',
-          '--disable-save-password-bubble',
-          '--disable-extensions',
-          '--password-store=basic', //very important to disable 'change your password' popup
-          //'--user-data-dir=/tmp/chrome-profile', //uses fresh chrome profile just in case
-        ],
-      },
-    },
+    // {
+    //   browserName: 'chrome',
+    //   browserVersion: 'stable',
+    //   'goog:chromeOptions': {
+    //     prefs: {
+    //       //very important to disable 'change your password' popup
+    //       credentials_enable_service: false,
+    //       profile: {
+    //         password_manager_enabled: false,
+    //       },
+    //     },
+    //     args: [
+    //       '--enable-automation',
+    //       //'--headless=new',
+    //       '--disable-gpu',
+    //       '--disable-save-password-bubble',
+    //       '--disable-extensions',
+    //       '--password-store=basic', //very important to disable 'change your password' popup
+    //       //'--user-data-dir=/tmp/chrome-profile', //uses fresh chrome profile just in case
+    //     ],
+    //   },
+    // },
     {
       browserName: 'firefox',
       'moz:firefoxOptions': {
@@ -125,7 +125,8 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['chromedriver', 'geckodriver'],
+  // 'chromedriver',
+  services: ['geckodriver'],
   //
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber

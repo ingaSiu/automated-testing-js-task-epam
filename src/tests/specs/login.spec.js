@@ -22,8 +22,8 @@ describe('Login tests', () => {
     it('should login with credentials then "enter" is pressed', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('standard_user');
-      await loginForm.input('password').setValue('secret_sauce');
+      await loginForm.enterCredentials('standard_user', 'secret_sauce');
+
       await pressEnter();
 
       const inventoryPage = new InventoryPage();
@@ -36,9 +36,8 @@ describe('Login tests', () => {
     it('should login with credentials and navigate to inventory page', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('standard_user');
-      await loginForm.input('password').setValue('secret_sauce');
-      await loginForm.loginBtn.click();
+      await loginForm.enterCredentials('standard_user', 'secret_sauce');
+      await loginForm.submit();
 
       const inventoryPage = new InventoryPage();
 
@@ -50,9 +49,8 @@ describe('Login tests', () => {
     it('should redirect to login page after logout', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('standard_user');
-      await loginForm.input('password').setValue('secret_sauce');
-      await loginForm.loginBtn.click();
+      await loginForm.enterCredentials('standard_user', 'secret_sauce');
+      await loginForm.submit();
 
       const inventoryPage = new InventoryPage();
 
@@ -69,15 +67,14 @@ describe('Login tests', () => {
     it('should not login with empty inputs', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('Username');
-      await loginForm.input('password').setValue('Password');
+      await loginForm.enterCredentials('Username', 'Password');
 
       await clearInput(loginForm.input('username'));
 
       await clearInput(loginForm.input('password'));
       await loginForm.input('username').click();
 
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText('Epic sadface: Username is required');
     });
@@ -92,12 +89,11 @@ describe('Login tests', () => {
     it('should not login without password', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('user');
-      await loginForm.input('password').setValue('secret_sauce');
+      await loginForm.enterCredentials('user', 'secret_sauce');
 
       await clearInput(loginForm.input('password'));
 
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText('Epic sadface: Password is required');
     });
@@ -105,10 +101,9 @@ describe('Login tests', () => {
     it('should not login with incorrect username', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('invalid_user');
-      await loginForm.input('password').setValue('secret_sauce');
+      await loginForm.enterCredentials('invalid_user', 'secret_sauce');
 
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText(
         'Epic sadface: Username and password do not match any user in this service',
@@ -117,10 +112,9 @@ describe('Login tests', () => {
 
     it('should not login with incorrect credentials', async () => {
       const { loginForm } = loginPage;
+      await loginForm.enterCredentials('invalid_user', 'wrong_password');
 
-      await loginForm.input('username').setValue('invalid_user');
-      await loginForm.input('password').setValue('wrong_password');
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText(
         'Epic sadface: Username and password do not match any user in this service',
@@ -132,7 +126,7 @@ describe('Login tests', () => {
 
       await addSpace(loginForm.input('username'));
       await addSpace(loginForm.input('password'));
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText(
         'Epic sadface: Username and password do not match any user in this service',
@@ -142,9 +136,9 @@ describe('Login tests', () => {
     it('should not login with locked_out users credentials', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('locked_out_user');
-      await loginForm.input('password').setValue('secret_sauce');
-      await loginForm.loginBtn.click();
+      await loginForm.enterCredentials('locked_out_user', 'secret_sauce');
+
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText('Epic sadface: Sorry, this user has been locked out.');
     });
@@ -152,10 +146,9 @@ describe('Login tests', () => {
     it('should clear error message then clicked', async () => {
       const { loginForm } = loginPage;
 
-      await loginForm.input('username').setValue('invalid_user');
-      await loginForm.input('password').setValue('secret_sauce');
+      await loginForm.enterCredentials('invalid_user', 'secret_sauce');
 
-      await loginForm.loginBtn.click();
+      await loginForm.submit();
 
       await expect(loginForm.errorElement).toHaveText(
         'Epic sadface: Username and password do not match any user in this service',

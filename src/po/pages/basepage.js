@@ -7,7 +7,7 @@ class BasePage {
     this.header = new Header();
     this.footer = new Footer();
   }
-  async open(path = '') {
+  async open() {
     await browser.url(`/${this.path}`);
   }
 }

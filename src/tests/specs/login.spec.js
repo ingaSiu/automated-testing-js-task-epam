@@ -40,11 +40,6 @@ describe('Login tests', () => {
       await loginForm.input('password').setValue('secret_sauce');
       await loginForm.loginBtn.click();
 
-      /*await browser.waitUntil(async () => (await browser.getUrl()).includes('inventory.html'), {
-        timeout: 5000, // Adjust timeout as needed
-        timeoutMsg: 'Expected URL to include "inventory.html"',
-      });*/
-
       const inventoryPage = new InventoryPage();
 
       await expect(browser).toHaveUrl(expect.stringContaining('inventory.html'));
@@ -65,7 +60,7 @@ describe('Login tests', () => {
 
       await loginPage.open();
 
-      //await expect(browser).toHaveUrl(expect.stringContaining('saucedemo.com'));
+      await expect(browser).toHaveUrl(expect.stringContaining('saucedemo.com'));
       await expect(loginPage.loginForm.input('username')).toBeDisplayed();
     });
   });

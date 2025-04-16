@@ -24,6 +24,15 @@ class LoginFormComponent extends BaseComponent {
     };
     return this.rootEl.$(selectors[name.toLowerCase()]);
   }
+
+  async enterCredentials(username, password) {
+    await this.input('username').setValue(username);
+    await this.input('password').setValue(password);
+  }
+
+  async submit() {
+    await this.loginBtn.click();
+  }
 }
 
 module.exports = LoginFormComponent;
